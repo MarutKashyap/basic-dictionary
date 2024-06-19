@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <% function playSound(audioSrc) { %>
+        <%let audio = new Audio(audioSrc);%>
+        <% audio.play(); %>
+    <% }%>
+    <audio src="" id="sound"></audio>
+    <div class="outer-container">
+        <div class="container">
+            <form action="/search" method="get" class = "container"> 
+                <div class="search-box">
+                    <input type="text" placeholder="Enter the word here..." id="input-word" name="input">
+                </div>
+                <button type="submit" id="search-btn">Search</button>
+            </form>
+        </div>
+        <div class="result" id=result>
+            <div class="word">
+
+                <% if (locals.data) { %>
+                 <h3> <%= data.word %></h3>
+                <% }else if (locals.error){%>
+                    <h3>Word not found</h3>
+                    <%}else{%>
+                        <h3>Sample</h3>
+                    <% } %>  
+                <!-- 
+                    <button <% if (locals.data) { %>
+                    onclick="playSound(<% data.phonetics[0].audio %>)">
+                <% } %> 
+                <i class="fa-solid fa-volume-high">
+                </i>
+                </button>
+                -->
+            </div>
+            <div class="details">
+                <% if (locals.data) { %>
+                    <p><%= data.meanings[0].partOfSpeech %></p>
+                    <p><%= data.phonetics[0].text %></p>
+                <% } %>
+            </div>
+
+            <div class="word-meaning">
+
+                <% if (locals.data) { %>
+                    <p> <%= data.meanings[0].definitions[0].definition %></p>
+                <% }else if (locals.error){%>
+                    
+                <%}else{%>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab culpa sequi veritatis debitis quam,
+                    repudiandae totam inventore et, voluptatem quibusdam quis unde dolorum atque reiciendis nemo
+                    pariatur soluta, vero veniam.</p>
+                <% } %>  
+                
+            </div>
+            <br>
+            <div class="word-example">
+
+                <% if (locals.data) { %>
+                 <p><%= data.meanings[0].definitions[0].example %></p>
+                <% }else if (locals.error){%>
+                    
+                    <%}else{%>
+                        <p>Word example</p>
+                    <% } %>  
+
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
